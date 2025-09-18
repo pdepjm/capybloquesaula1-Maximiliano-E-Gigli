@@ -67,3 +67,34 @@ object barrilDeCombustible {
     game.removeTickEvent("cambiarCombustible")
   }
 }
+
+
+/* Agrego por consigna:
+Basura que se mueva de un lado a otro*/
+object botellaDeVino {
+  var property position = posicionAleatoria.calcular()
+  var property longitudCm = 10
+  var direccion = 1
+  
+  method impactoEnLaHuellaDeCarbono() = 5 * longitudCm
+  method nombre() = "botella_vino"
+  method image() = self.nombre() + ".png"
+
+  method esReciclable() = true
+  
+  method tratar() {
+    longitudCm *= 0.9
+  }
+  
+  method colisionarCon(capy) {
+    capy.recolectarBasura(self)
+    game.removeTickEvent("moverBotellaVino")
+  }
+  
+  method moverBotellaVino(){
+    if(position.x()==game.width() or position.x()==0){
+      direccion *= -1
+    }
+    position.x(position.x()+1*direccion)
+  }
+}
